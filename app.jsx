@@ -8,22 +8,16 @@ import {
 import { createTodo, getTodos, saveTodos } from "./todos.js";
 
 function App() {
+  console.log("rendering page")
+
+  // Represents the month being displayed
   const [date, setDate] = React.useState(new Date());
-  const [now, setNow] = React.useState(new Date());
   const [todos, setTodos] = React.useState(getTodos());
 
   function addTodo(title, date) {
     createTodo(title, date);
     setTodos(getTodos());
   }
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setNow(new Date());
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   function crementDate(dir) {
     if (dir > 0) dir = 1;
@@ -42,9 +36,7 @@ function App() {
       className="bg-slate-400 px-2 flex flex-col sm:flex-row lg:w-[1024px] lg:mx-auto"
     >
       <div className="w-full">
-        <header className="bg-slate-500 py-2 w-full text-center text-slate-100 font-bold">
-          {formattedDateString(now)}
-        </header>
+        <Header />
         <main className="p-4 bg-slate-200 w-full">
           <div className="current-month flex flex-row justify-around py-2">
             <Button handler={() => crementDate(-1)}>{"<"} prev </Button>
@@ -69,6 +61,23 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
 
 //Components
+function Header() {
+  const [now, setNow] = React.useState(new Date()); 
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(new Date());
+    }, 1000);
+    
+    return () => clearInterval(interval); 
+  }, []);
+
+  return (
+      <header className="bg-slate-500 py-2 w-full text-center text-slate-100 font-bold">
+        {formattedDateString(now)}
+      </header>
+  )
+}
 
 /*-------------Calendar---------------*/
 
