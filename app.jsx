@@ -42,17 +42,22 @@ function App() {
       className="bg-slate-400 px-2 flex flex-col sm:flex-row lg:w-[1024px] lg:mx-auto"
     >
       <div className="w-full">
-        <header className="bg-slate-500 w-full">
+        <header className="bg-slate-500 py-2 w-full text-center text-slate-100 font-bold">
           {formattedDateString(now)}
         </header>
-        <main className="px-2 bg-slate-200 w-full">
-          <Button handler={() => crementDate(-1)}> prev </Button>
-          <Button handler={() => crementDate(1)}> next </Button>
+        <main className="p-4 bg-slate-200 w-full">
+          <div className="current-month flex flex-row justify-around py-2">
+            <Button handler={() => crementDate(-1)}>{"<"} prev </Button>
+            <div >
+              {date.toLocaleDateString("sv-SE", {month:"long", year:"numeric"})}
+            </div>
+            <Button handler={() => crementDate(1)}> next {">"}</Button>
+          </div>
 
           <Calendar date={date} todos={todos} />
         </main>
       </div>
-      <aside className="bg-slate-300 w-full sm:w-1/4 sm:-order-1">
+      <aside className="p-2 space-y-3 bg-slate-300 w-full sm:w-1/4 sm:-order-1">
         <AddTodoForm addTodo={addTodo} />
         <Todos todos={todos} />
       </aside>
@@ -111,13 +116,13 @@ function EmptyDays({ emptyDays }) {
 }
 
 function EmptyDay() {
-  return <div className=" calendar-day empty"></div>;
+  return <div className="calendar-day empty opacity-50"></div>;
 }
 
 function CalendarCell({ dateNumber, todoCount }) {
   return (
-    <div className="calendar-day">
-      <div className="date-number">{dateNumber}</div>
+    <div className="calendar-day px-2 p-1/2">
+      <div className="date-number text-slate-500">{dateNumber}</div>
       {todoCount > 0 ? <div className="calendar-day-todo-count">{todoCount}</div> : ""}
     </div>
   );
@@ -144,21 +149,26 @@ function Todos({ todos }) {
   return (
     <>
       <h3>Todos:</h3>
-      <ul id="todo-list">{todoElements}</ul>
+      <ul className="space-y-2" id="todo-list">{todoElements}</ul>
     </>
   );
 }
 
 function Todo({ title, dateString, completed }) {
   return (
-    <li>
+    <li className="list-disc ml-6">
       {title} - {dateString} {Boolean(completed) ? "klart!" : ""}
     </li>
   );
 }
 
 function Button({ handler, children }) {
-  return <button onClick={handler}>{children}</button>;
+  return ( <button 
+    className="border bg-slate-400 border-slate-900 px-2 rounded"
+    onClick={handler}>
+      {children}
+    </button>
+  );
 }
 
 function AddTodoForm({addTodo}) {
@@ -172,11 +182,15 @@ function AddTodoForm({addTodo}) {
   }
 
   return (
-    <form onSubmit={(e) => {e.preventDefault(); submit();} }>
-      <label>Lägg till en todo</label>
-      <input type="text" name="title" placeholder="titel" value={title} required onChange={(e) => setTitle(e.target.value)}/>
-      <input type="date" name="date" placeholder="2025-05-25" value={date} required  onChange={(e) => setDate(e.target.value)}/>
-      <button type="submit"> Lägg till </button>
+    <form className="flex flex-col" onSubmit={(e) => {e.preventDefault(); submit();} }>
+      <label className="font-bold mb-2">Lägg till en todo:</label>
+      <div className="flex flex-row w-full md: flex-col">
+        <div className="flex flex-col flex-1 mb-2">
+          <input type="text" name="title" placeholder="titel" value={title} required onChange={(e) => setTitle(e.target.value)}/>
+          <input type="date" name="date" placeholder="2025-05-25" value={date} required  onChange={(e) => setDate(e.target.value)}/>
+        </div>
+        <button className="border bg-slate-400 border-slate-900 px-2 rounded" type="submit"> Lägg till </button>
+      </div>
     </form>
   )
 }

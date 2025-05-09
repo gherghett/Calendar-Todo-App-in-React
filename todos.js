@@ -22,7 +22,7 @@ export function createTodo(title, date) {
   const newTodo = {
     id: crypto.randomUUID(),
     title: title,
-    date: new Date(date),
+    date: new Date(date).toLocaleDateString("sv-SE"),
     completed: false,
   };
 
