@@ -91,7 +91,7 @@ function Calendar({ date, todos }) {
 ```
 ## Styling
 
-This would be a todo in this todo project. I'll use tailwind if I do it. For now, the main goal was understanding the basics of React, and I feel I achieved that. Next time trying React it will be with a bundler like Vite or Next and definitely with typescript because I miss type hinting.
+I used some basic tailwind for the styles. The main goal was understanding the basics of React, and I feel I achieved that. Next time trying React it will be with a bundler like Vite or Next and definitely with typescript because I miss type hinting.
 
 ## Writing the README
 
