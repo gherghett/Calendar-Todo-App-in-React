@@ -4,7 +4,7 @@ A simple responsive calendar-based todo list built using React and Tailwind CSS.
 
 https://gherghett.github.io/Calendar-Todo-App-in-React/
 
-![horizontal collage of screenshots](readme_images/horizontal_collage_transparent.png)
+![horizontal collage of screenshots](readme_images/horizontal_collage_transparent_styld.png)
 
 ## The setup
 
